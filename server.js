@@ -15,19 +15,23 @@ function runLoop(response){
     response.each(function(err, doc) {
         
             var totalDuration=0;
-            console.log(doc)
+           
             for(var i=0; i < doc.attempts.length; i++){
 
                 var value = doc.attempts[i];
                 totalDuration+=value.duration;
             }
+            
+            var temp=doc;
+            temp.TotalDuration=totalDuration;
+            console.log(temp)
             TotalDuration[j]=totalDuration;
             j++;
          });
 
 }
 
-schedule.scheduleJob( '0 0 * * *', () =>{
+schedule.scheduleJob( '*/5 * * * * *', () =>{
     MongoClient.connect(url, function (err, client) {
         if (err) throw err;
 
